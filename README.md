@@ -13,18 +13,18 @@ python d3video.py
 ```
 ```json
 {
-  "first_order_accuracy": 0.5,
+  "first_order_accuracy": 0.46,
   "second_order_accuracy": 1.0,
-  "accuracy_gain_pct": 50.0,
-  "threshold": 1.386
+  "accuracy_gain_pct": 54.0,
+  "threshold": 0.386
 }
 ```
 
-A first-order signal has nothing to threshold against here — it's a coin flip, 50% accuracy, because smooth frame-to-frame motion looks identical whether it's real or synthetic. Score the second-order difference (the difference of the differences) and threshold against the sample mean, and accuracy hits 100% across 200 sequences — a 50 percentage-point gain from one derivative nobody bothered faking.
+Score sequences by first-order (frame-to-frame) motion alone and you're basically guessing: 46% accuracy, worse than a coin flip on 200 sequences, because smooth motion looks the same whether it's real or synthetic. Score the second-order difference (the difference of the differences) and threshold against the sample mean, and accuracy hits 100% — a 54 percentage-point gain from one derivative most generators don't bother faking.
 
 ## How it works
 
-200 synthetic motion sequences are generated with smooth first-order trajectories (linear drift plus a sine wobble); half get a small alternating perturbation injected — a stand-in for the frame-level artifacts that video generators introduce even when frame-to-frame motion looks plausible. The detector computes the second difference of each sequence and averages its absolute magnitude. Real sequences cluster low, perturbed ones cluster high, and a single threshold (the dataset mean) separates them cleanly. No CNN, no frame classifier — just arithmetic on differences, made explicit.
+200 synthetic motion sequences are generated with smooth first-order trajectories (linear drift plus a sine wobble); half get a small alternating perturbation injected — a stand-in for the frame-level artifacts video generators introduce even when frame-to-frame motion looks plausible. Both a first-order detector (mean absolute frame-to-frame difference) and a second-order detector (mean absolute difference of differences) are computed and thresholded the same way, so the comparison is apples to apples: same data, same thresholding rule, only the derivative order changes. First-order can't tell the classes apart because the perturbation is deliberately too small to show up in raw motion. Second-order catches it because acceleration, not velocity, is where the injected artifact actually lives.
 
 ## Run it
 
@@ -35,7 +35,7 @@ python -m unittest discover -s tests -v
 
 ## What is tested
 
-The test compares second-order detection against the first-order (chance-level) baseline and requires `accuracy_gain_pct >= 25`. The data generator is seeded, so the number in this README, in CI, and in the portfolio case study are the same number, not three different ones that happen to rhyme.
+The test compares second-order detection against the first-order baseline and requires `accuracy_gain_pct >= 25`. Both accuracies are computed from the same run, not hardcoded, so the gap is a real measurement and not an assumption. The data generator is seeded, so the number in this README, in CI, and in the portfolio case study are the same number, not three different ones that happen to rhyme.
 
 ## Scope
 
