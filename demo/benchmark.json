@@ -1,0 +1,6 @@
+{
+  "first_order_accuracy": 0.5,
+  "second_order_accuracy": 1.0,
+  "accuracy_gain_pct": 50.0,
+  "threshold": 1.386
+}

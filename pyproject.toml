@@ -1,0 +1,13 @@
+[project]
+name = "d3video"
+version = "0.1.0"
+description = "Training-free synthetic-video detection from the difference of differences."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [{name = "Ahmed Doghri"}]
+keywords = ["machine-learning", "research", "vision-video", "benchmark"]
+
+[project.urls]
+Homepage = "https://adoghri.com"
+Repository = "https://github.com/ahmeddoghri/d3video"
