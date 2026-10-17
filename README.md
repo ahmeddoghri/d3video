@@ -1,5 +1,9 @@
 # d3video
 
+[![tests](https://github.com/ahmeddoghri/d3video/actions/workflows/tests.yml/badge.svg)](https://github.com/ahmeddoghri/d3video/actions/workflows/tests.yml) [![case study](https://img.shields.io/badge/case%20study-adoghri.com-e0703e)](https://adoghri.com/project-40.html)
+
+![d3video](docs/cover.jpg)
+
 **Training-free synthetic-video detection from the difference of differences.**
 
 First-order motion — frame-to-frame difference — looks smooth in both real and AI-generated video, because generators got good at faking velocity. What they haven't fully faked is *acceleration*: the second derivative, the jitter in how the jitter itself changes. d3video doesn't watch pixels move. It watches how the *rate* of movement moves, and that's where synthetic video still gives itself away.
