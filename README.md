@@ -30,7 +30,7 @@ Score sequences by first-order (frame-to-frame) motion alone and you're basicall
 injected "fake" artifact alternates sign every single frame at full
 amplitude — close to the highest frequency a discrete sequence can carry,
 which is exactly what a two-tap second-difference filter is most sensitive
-to. A less contrived but equally plausible artifact (half the amplitude,
+to. A less contrived but equally plausible artifact (40% of the amplitude,
 per-frame random sign instead of perfect alternation) drops second-order
 accuracy to ~72-73% and the gain to ~23pp. The core mechanism survives —
 second-order still clearly beats first-order — but the published numbers
